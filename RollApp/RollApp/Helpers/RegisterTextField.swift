@@ -35,20 +35,18 @@ class RegisterTextField: UITextField {
     //MARK: - Private Methods
     private func setupTextField(placeholder: String) {
         textColor = .accentDarkBlue
+        font = .boldSystemFont(ofSize: 15)
         
         layer.cornerRadius = 25
         layer.backgroundColor = UIColor.white.cgColor
-        
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowRadius = 7
         layer.shadowOpacity = 0.4
         layer.shadowOffset = CGSize(width: 15, height: 15)
         
         attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor : UIColor.systemGray2])
-        font = .boldSystemFont(ofSize: 15)
         
         heightAnchor.constraint(equalToConstant: 50).isActive = true
         translatesAutoresizingMaskIntoConstraints = false
     }
 }
-

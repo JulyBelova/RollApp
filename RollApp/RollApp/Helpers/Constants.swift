@@ -9,15 +9,14 @@ import Foundation
 enum ConstantsOnboarding {
     static let topLabel = "Роллы, которые доставляют удовоствие!"
 }
-enum ConstantsAuthVC {
-    static let loginTF = "Enter your login"
-    static let passwordTF = "Enter your password"
+enum ConstantsSignInVC {
+    static let loginTF = "Email"
+    static let passwordTF = "Password"
     static let forgotPassLabel = "Forgot Password?"
     static let myButton = "Eat Away!"
     static let signUpLabel = "Sign Up"
 }
-enum ConstantsSheetVC {
-    static let signInLabel = "Sign In"
+enum ConstantsSignUpVC {
     static let nameTF = "Name"
     static let loginTF = "Email"
     static let passwordTF = "Password"
@@ -45,4 +44,3 @@ enum SystemImageName {
     static let arrowRight = "arrow.right"
     static let chevronUp = "chevron.up"
 }
-

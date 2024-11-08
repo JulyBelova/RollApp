@@ -28,7 +28,4 @@ final class LogoView: UIImageView {
         layer.shadowOffset = CGSize(width: 15, height: 15)
         translatesAutoresizingMaskIntoConstraints = false
     }
-    
-    
 }
-

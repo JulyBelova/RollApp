@@ -57,7 +57,7 @@ private extension OnboardingViewController {
     }
     
     @objc private func selectButtonTapped() {
-        let viewControllerToPresent = ViewController()
+        let viewControllerToPresent = SignInViewController()
         viewControllerToPresent.modalPresentationStyle = .fullScreen
         present(viewControllerToPresent, animated: true, completion: nil)
     }
