@@ -77,7 +77,7 @@ private extension VerificationAlertVC {
     }
     @objc func resetPassword() {
         print("Reset password for email: \(emailTextField.text ?? "")")
-        let viewControllerToPresent = ViewController()
+        let viewControllerToPresent = NewPasswordViewController()
         viewControllerToPresent.modalPresentationStyle = .fullScreen
         present(viewControllerToPresent, animated: true, completion: nil)
         
