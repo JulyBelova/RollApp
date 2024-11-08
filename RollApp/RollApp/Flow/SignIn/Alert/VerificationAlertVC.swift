@@ -1,15 +1,14 @@
 //
-//  ForgotPassAlertVC.swift
+//  VerificationAlertVC.swift
 //  RollApp
 //
 //  Created by July Belova on 08.11.2024.
 //
 import UIKit
-//MARK: - ForgotPassAlertVC
-final class ForgotPassAlertVC: UIViewController {
+
+final class VerificationAlertVC: UIViewController {
     
     //MARK: - Private Property
-   
     private let alertView: UIView = {
         let element = UIView()
         element.translatesAutoresizingMaskIntoConstraints = false
@@ -17,26 +16,35 @@ final class ForgotPassAlertVC: UIViewController {
         element.layer.cornerRadius = 10
         return element
     }()
-    private let cancelButton: UIButton = {
-        let element = UIButton()
-        element.translatesAutoresizingMaskIntoConstraints = false
-        element.backgroundColor = .white
-        element.setTitle("✖", for: .normal)
-        element.titleLabel?.font = UIFont.systemFont(ofSize: 14)
-        element.layer.cornerRadius = 10
-        return element
-    }()
-    private let titleAlertLabel: UILabel = {
+    
+    private let titleLabel: UILabel = {
         let element = UILabel()
         element.translatesAutoresizingMaskIntoConstraints = false
-        element.text = ConstantsAlert.titleAlertLabel
+        element.text = ConstantsAlert.titleLabel
         element.textColor = .accentDarkBlue
         element.font = UIFont.boldSystemFont(ofSize: 20)
         return element
     }()
-
-    let emailTextField = RegisterTextField(placeholder: ConstantsAlert.emailTextField)
-    let resetButton = MyButton(placeholder: ConstantsAlert.resetButton)
+    
+    private let smallTitleLabel: UILabel = {
+        let element = UILabel()
+        element.translatesAutoresizingMaskIntoConstraints = false
+        element.text = ConstantsAlert.smallTitleLabel
+        element.textColor = .white
+        element.font = UIFont.boldSystemFont(ofSize: 12)
+        return element
+    }()
+    
+    private let emailTextField = RegisterTextField(placeholder: ConstantsAlert.titleLabel)
+    private let resetButton = MyButton(placeholder: ConstantsAlert.resetButton)
+    
+    private let changeButton: UIButton = {
+        let element = UIButton()
+        element.translatesAutoresizingMaskIntoConstraints = false
+        element.setTitle(ConstantsAlert.changeButton, for: .normal)
+        element.titleLabel?.font = UIFont.systemFont(ofSize: 11)
+        return element
+    }()
     
     //MARK: - Override Methods
     override func viewDidLoad() {
@@ -45,7 +53,7 @@ final class ForgotPassAlertVC: UIViewController {
     }
 }
 //MARK: - Setting Views
-private extension ForgotPassAlertVC {
+private extension VerificationAlertVC {
     func setupView() {
         view.backgroundColor = UIColor(white: 0, alpha: 0.3)
         addSubViews()
@@ -53,33 +61,33 @@ private extension ForgotPassAlertVC {
         setupLayout()
     }
 }
-//MARK: - Setting
-private extension ForgotPassAlertVC {
+    //MARK: - Setting Views
+private extension VerificationAlertVC {
     func addSubViews() {
         view.addSubview(alertView)
-        alertView.addSubview(cancelButton)
-        alertView.addSubview(titleAlertLabel)
+        alertView.addSubview(titleLabel)
+        alertView.addSubview(smallTitleLabel)
         alertView.addSubview(emailTextField)
         alertView.addSubview(resetButton)
+        alertView.addSubview(changeButton)
     }
-    
     func addAction () {
-        cancelButton.addTarget(self, action: #selector(dismissAlert), for: .touchUpInside)
         resetButton.addTarget(self, action: #selector(resetPassword), for: .touchUpInside)
+        changeButton.addTarget(self, action: #selector(dismissAlert), for: .touchUpInside)
     }
-    
     @objc func resetPassword() {
         print("Reset password for email: \(emailTextField.text ?? "")")
-        let viewControllerToPresent = VerificationAlertVC()
+        let viewControllerToPresent = ViewController()
+        viewControllerToPresent.modalPresentationStyle = .fullScreen
         present(viewControllerToPresent, animated: true, completion: nil)
+        
     }
-    
     @objc func dismissAlert() {
         self.dismiss(animated: true, completion: nil)
     }
 }
 //MARK: - Layout
-private extension ForgotPassAlertVC {
+private extension VerificationAlertVC {
     func setupLayout() {
         NSLayoutConstraint.activate([
             alertView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -87,21 +95,22 @@ private extension ForgotPassAlertVC {
             alertView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
             alertView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.45),
             
-            cancelButton.topAnchor.constraint(equalTo: alertView.topAnchor, constant: 20),
-            cancelButton.rightAnchor.constraint(equalTo: alertView.rightAnchor, constant: -20),
-            cancelButton.widthAnchor.constraint(equalToConstant: 20),
-            cancelButton.heightAnchor.constraint(equalToConstant: 20),
+            titleLabel.topAnchor.constraint(equalTo: alertView.topAnchor, constant: 20),
+            titleLabel.centerXAnchor.constraint(equalTo: alertView.centerXAnchor),
             
-            titleAlertLabel.topAnchor.constraint(equalTo: cancelButton.bottomAnchor, constant: 20),
-            titleAlertLabel.centerXAnchor.constraint(equalTo: alertView.centerXAnchor),
+            smallTitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15),
+            smallTitleLabel.centerXAnchor.constraint(equalTo: alertView.centerXAnchor),
             
-            emailTextField.topAnchor.constraint(equalTo: titleAlertLabel.bottomAnchor, constant: 20),
+            emailTextField.topAnchor.constraint(equalTo: smallTitleLabel.bottomAnchor, constant: 20),
             emailTextField.centerXAnchor.constraint(equalTo: alertView.centerXAnchor),
             emailTextField.widthAnchor.constraint(equalTo: alertView.widthAnchor, multiplier: 0.8),
             
             resetButton.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 20),
             resetButton.centerXAnchor.constraint(equalTo: alertView.centerXAnchor),
             resetButton.widthAnchor.constraint(equalTo: alertView.widthAnchor, multiplier: 0.6),
+            
+            changeButton.topAnchor.constraint(equalTo: resetButton.bottomAnchor, constant: 20),
+            changeButton.centerXAnchor.constraint(equalTo: alertView.centerXAnchor),
         ])
     }
 }
