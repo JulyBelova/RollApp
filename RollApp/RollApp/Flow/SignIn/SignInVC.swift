@@ -11,19 +11,19 @@ final class SignInViewController: UIViewController {
     
     //MARK: - Private Property
     private let logoImageView = LogoView()
-    private let loginTF = RegisterTextField(placeholder: ConstantsAuthVC.loginTF)
-    private let passwordTF = RegisterTextField(placeholder: ConstantsAuthVC.passwordTF)
+    private let loginTF = RegisterTextField(placeholder: ConstantsSignInVC.loginTF)
+    private let passwordTF = RegisterTextField(placeholder: ConstantsSignInVC.passwordTF)
     
     private let forgotPassLabel: UILabel = {
         let element = UILabel()
-        element.text = ConstantsAuthVC.forgotPassLabel
+        element.text = ConstantsSignInVC.forgotPassLabel
         element.textColor = .systemGray2
         element.font = .boldSystemFont(ofSize: 12)
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
     
-    private let myButton = MyButton(placeholder: ConstantsAuthVC.myButton)
+    private let myButton = MyButton(placeholder: ConstantsSignInVC.myButton)
     
     private let imageView: UIView = {
         let element = UIView()
@@ -41,7 +41,7 @@ final class SignInViewController: UIViewController {
     }()
     private let signUpLabel: UILabel = {
         let element = UILabel()
-        element.text = ConstantsAuthVC.signUpLabel
+        element.text = ConstantsSignInVC.signUpLabel
         element.textColor = .white
         element.font = .boldSystemFont(ofSize: 20)
         element.translatesAutoresizingMaskIntoConstraints = false
@@ -114,7 +114,7 @@ private extension SignInViewController {
     }
     
     func showMyViewControllerInACustomizedSheet() {
-        let viewControllerToPresent = ViewController()
+        let viewControllerToPresent = SingUpViewController()
         if let sheet = viewControllerToPresent.sheetPresentationController {
             sheet.detents = [.medium(), .large()]
             sheet.largestUndimmedDetentIdentifier = .none
