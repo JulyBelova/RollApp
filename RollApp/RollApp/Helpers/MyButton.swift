@@ -9,9 +9,9 @@ import UIKit
 class MyButton: UIButton {
     
     //MARK: - Initializers
-    init(placeholder: String) {
+    init(buttonText: String) {
         super.init(frame: .zero)
-        setupMyButton(placeholder: placeholder)
+        setupMyButton(buttonText: buttonText)
     }
     @available(*, unavailable)
     required init?(coder: NSCoder) {
@@ -19,8 +19,8 @@ class MyButton: UIButton {
     }
     
     //MARK: - Private Methods
-    private func setupMyButton(placeholder: String) {
-        setTitle(placeholder, for: .normal)
+    private func setupMyButton(buttonText: String) {
+        setTitle(buttonText, for: .normal)
         backgroundColor = .accentLightRed
         tintColor = .white
         titleLabel?.font = UIFont.systemFont(ofSize: 17)

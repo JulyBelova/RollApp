@@ -25,7 +25,7 @@ final class NewPasswordViewController: UIViewController {
     
     private let newPassTF = RegisterTextField(placeholder: ConstantsNewPass.newPassTF)
     private let passwordTF = RegisterTextField(placeholder: ConstantsNewPass.passwordTF)
-    private let myButton = MyButton(placeholder: ConstantsNewPass.myButton)
+    private let myButton = MyButton(buttonText: ConstantsNewPass.myButton)
     
     //MARK: - Override Methods
     override func viewDidLoad() {

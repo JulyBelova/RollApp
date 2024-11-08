@@ -23,7 +23,7 @@ final class SignInViewController: UIViewController {
         return element
     }()
     
-    private let myButton = MyButton(placeholder: ConstantsSignInVC.myButton)
+    private let myButton = MyButton(buttonText: ConstantsSignInVC.myButton)
     
     private let imageView: UIView = {
         let element = UIView()

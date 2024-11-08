@@ -36,7 +36,7 @@ final class VerificationAlertVC: UIViewController {
     }()
     
     private let emailTextField = RegisterTextField(placeholder: ConstantsAlert.titleLabel)
-    private let resetButton = MyButton(placeholder: ConstantsAlert.resetButton)
+    private let resetButton = MyButton(buttonText: ConstantsAlert.resetButton)
     
     private let changeButton: UIButton = {
         let element = UIButton()

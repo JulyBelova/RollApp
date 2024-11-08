@@ -36,7 +36,7 @@ final class ForgotPassAlertVC: UIViewController {
     }()
 
     let emailTextField = RegisterTextField(placeholder: ConstantsAlert.emailTextField)
-    let resetButton = MyButton(placeholder: ConstantsAlert.resetButton)
+    let resetButton = MyButton(buttonText: ConstantsAlert.resetButton)
     
     //MARK: - Override Methods
     override func viewDidLoad() {

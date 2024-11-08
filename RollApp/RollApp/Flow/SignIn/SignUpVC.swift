@@ -25,7 +25,7 @@ final class SingUpViewController: UIViewController {
     private let passwordTF = RegisterTextField(placeholder: ConstantsSignUpVC.passwordTF)
     private let conformPasswordTF = RegisterTextField(placeholder: ConstantsSignUpVC.conformPasswordTF)
     
-    private let myButton = MyButton(placeholder: ConstantsSignUpVC.myButton)
+    private let myButton = MyButton(buttonText: ConstantsSignUpVC.myButton)
     
     //MARK: - Override Methods
     override func viewDidLoad() {

@@ -22,7 +22,7 @@ final class OnboardingViewController: UIViewController {
     }()
     
     private let logoImageView = LogoView()
-    private let arrowButton = MyButton(placeholder: " ")
+    private let arrowButton = MyButton(buttonText: " ")
     
     //MARK: - Override Methods
     override func viewDidLoad() {
