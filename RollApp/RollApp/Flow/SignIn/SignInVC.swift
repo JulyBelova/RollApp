@@ -99,7 +99,7 @@ private extension SignInViewController {
     }
     
     @objc func forgotPassTap(_ sender: UITapGestureRecognizer) {
-        let viewControllerToPresent = ViewController()
+        let viewControllerToPresent = ForgotPassAlertVC()
         present(viewControllerToPresent, animated: true, completion: nil)
     }
     
