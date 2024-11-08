@@ -45,4 +45,3 @@ enum SystemImageName {
     static let arrowRight = "arrow.right"
     static let chevronUp = "chevron.up"
 }
-

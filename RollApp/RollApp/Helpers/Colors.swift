@@ -19,4 +19,3 @@ extension UIColor {
     static var accentRed: UIColor { #colorLiteral(red: 0.5087198615, green: 0.09822530299, blue: 0, alpha: 1) }
     static var accentLightRed: UIColor { #colorLiteral(red: 0.7562223673, green: 0.3003486395, blue: 0.1867262721, alpha: 1) }
 }
-
