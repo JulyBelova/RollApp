@@ -14,7 +14,7 @@ final class ForgotPassAlertVC: UIViewController {
         let element = UIView()
         element.translatesAutoresizingMaskIntoConstraints = false
         element.backgroundColor = .accentLightBlue
-        element.layer.cornerRadius = 10
+        element.layer.cornerRadius = 35
         return element
     }()
     private let cancelButton: UIButton = {
@@ -71,6 +71,7 @@ private extension ForgotPassAlertVC {
     @objc func resetPassword() {
         print("Reset password for email: \(emailTextField.text ?? "")")
         let viewControllerToPresent = VerificationAlertVC()
+        viewControllerToPresent.modalPresentationStyle = .overFullScreen
         present(viewControllerToPresent, animated: true, completion: nil)
     }
     
@@ -85,7 +86,7 @@ private extension ForgotPassAlertVC {
             alertView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             alertView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             alertView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
-            alertView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.45),
+            alertView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4),
             
             cancelButton.topAnchor.constraint(equalTo: alertView.topAnchor, constant: 20),
             cancelButton.rightAnchor.constraint(equalTo: alertView.rightAnchor, constant: -20),

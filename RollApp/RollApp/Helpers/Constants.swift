@@ -37,8 +37,15 @@ enum ConstantsAlert {
     static let resetButton = "Reset Password"
     static let changeButton = "Change Email"
 }
+enum ConstantsMainPageVC {
+    static let menuLabel = "Menu"
+    static let titleLabel = "Еда, приготовленная с любовью. Богатейшие ингредиенты."
+}
 enum ImageName {
     static let logo = "icon"
+    static let topImage = "topImage"
+    static let menu = "menu"
+    static let basketLight = "basketLight"
 }
 enum SystemImageName {
     static let arrowRight = "arrow.right"

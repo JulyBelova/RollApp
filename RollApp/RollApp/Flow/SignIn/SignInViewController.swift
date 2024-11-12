@@ -1,5 +1,5 @@
 //
-//  SignInVC.swift
+//  SignInViewController.swift
 //  RollApp
 //
 //  Created by July Belova on 08.11.2024.
@@ -10,6 +10,16 @@ import UIKit
 final class SignInViewController: UIViewController {
     
     //MARK: - Private Property
+    private let gradientLayer: CAGradientLayer = {
+        let layer = CAGradientLayer()
+        layer.colors = [
+            UIColor.accentBlue.cgColor,
+            UIColor.accentDarkBlue.cgColor
+        ]
+        layer.locations = [0.0, 1.0]
+        return layer
+    }()
+    
     private let logoImageView = LogoView()
     private let loginTF = RegisterTextField(placeholder: ConstantsSignInVC.loginTF)
     private let passwordTF = RegisterTextField(placeholder: ConstantsSignInVC.passwordTF)
@@ -47,18 +57,21 @@ final class SignInViewController: UIViewController {
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
-
+    
     //MARK: - Override Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        gradientLayer.frame = view.bounds
     }
 }
 
 //MARK: - Setting Views
 private extension SignInViewController {
     func setupView() {
-        view.backgroundColor = .accentDarkBlue
         
         loginTF.backgroundColor = .accentBlue
         loginTF.textColor = .yellow
@@ -74,6 +87,7 @@ private extension SignInViewController {
 //MARK: - Setting
 private extension SignInViewController {
     func addSubViews() {
+        view.layer.addSublayer(gradientLayer)
         view.addSubview(logoImageView)
         view.addSubview(loginTF)
         view.addSubview(passwordTF)
@@ -100,11 +114,12 @@ private extension SignInViewController {
     
     @objc func forgotPassTap(_ sender: UITapGestureRecognizer) {
         let viewControllerToPresent = ForgotPassAlertVC()
+        viewControllerToPresent.modalPresentationStyle = .overFullScreen
         present(viewControllerToPresent, animated: true, completion: nil)
     }
     
     @objc private func selectMyButtonTapped() {
-        let viewControllerToPresent = ViewController()
+        let viewControllerToPresent = MainPageViewController()
         viewControllerToPresent.modalPresentationStyle = .fullScreen
         present(viewControllerToPresent, animated: true, completion: nil)
     }
@@ -130,10 +145,8 @@ private extension SignInViewController {
 //MARK: - Layout
 private extension SignInViewController {
     func setupLayout() {
-        logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
-        logoImageView.widthAnchor.constraint(equalToConstant: 150).isActive = true
-        logoImageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
-        logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        logoImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: -85).isActive = true
+        logoImageView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: -15).isActive = true
         
         loginTF.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 50).isActive = true
         loginTF.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -157,9 +170,12 @@ private extension SignInViewController {
         
         chevron.centerXAnchor.constraint(equalTo: imageView.centerXAnchor).isActive = true
         chevron.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 0).isActive = true
-
+        
         signUpLabel.centerXAnchor.constraint(equalTo: chevron.centerXAnchor).isActive = true
         signUpLabel.topAnchor.constraint(equalTo: chevron.bottomAnchor, constant: 0).isActive = true
     }
 }
 
+//#Preview("SignInViewController"){
+//    SignInViewController()
+//}

@@ -1,5 +1,5 @@
 //
-//  SignUpVC.swift
+//  SignUpViewController.swift
 //  RollApp
 //
 //  Created by July Belova on 08.11.2024.

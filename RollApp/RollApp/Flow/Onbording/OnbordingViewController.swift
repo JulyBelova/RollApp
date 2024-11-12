@@ -1,5 +1,5 @@
 //
-//  OnbordingVC.swift
+//  OnbordingViewController.swift
 //  RollApp
 //
 //  Created by July Belova on 06.11.2024.
@@ -67,8 +67,6 @@ private extension OnboardingViewController {
 private extension OnboardingViewController {
     func setupLayout() {
         logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
-        logoImageView.widthAnchor.constraint(equalToConstant: 300).isActive = true
-        logoImageView.heightAnchor.constraint(equalToConstant: 300).isActive = true
         logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         topLabel.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 50).isActive = true

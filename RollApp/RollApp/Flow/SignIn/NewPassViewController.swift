@@ -1,5 +1,5 @@
 //
-//  NewPassVC.swift
+//  NewPassViewController.swift
 //  RollApp
 //
 //  Created by July Belova on 08.11.2024.
@@ -59,7 +59,7 @@ private extension NewPasswordViewController {
     }
     
     @objc private func selectButtonTapped() {
-        let viewControllerToPresent = ViewController()
+        let viewControllerToPresent = MainPageViewController()
         viewControllerToPresent.modalPresentationStyle = .fullScreen
         present(viewControllerToPresent, animated: true, completion: nil)
     }

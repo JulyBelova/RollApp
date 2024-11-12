@@ -13,7 +13,6 @@ class MyButton: UIButton {
         super.init(frame: .zero)
         setupMyButton(buttonText: buttonText)
     }
-    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
