@@ -14,7 +14,6 @@ final class LogoView: UIImageView {
         super.init(frame: .zero)
         setupLogoView()
     }
-    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -26,6 +25,8 @@ final class LogoView: UIImageView {
         layer.shadowRadius = 7
         layer.shadowOpacity = 0.4
         layer.shadowOffset = CGSize(width: 15, height: 15)
+        widthAnchor.constraint(equalToConstant: 300).isActive = true
+        heightAnchor.constraint(equalToConstant: 300).isActive = true
         translatesAutoresizingMaskIntoConstraints = false
     }
 }

@@ -13,7 +13,7 @@ final class VerificationAlertVC: UIViewController {
         let element = UIView()
         element.translatesAutoresizingMaskIntoConstraints = false
         element.backgroundColor = .accentLightBlue
-        element.layer.cornerRadius = 10
+        element.layer.cornerRadius = 35
         return element
     }()
     
@@ -36,7 +36,7 @@ final class VerificationAlertVC: UIViewController {
     }()
     
     private let emailTextField = RegisterTextField(placeholder: ConstantsAlert.titleLabel)
-    private let resetButton = MyButton(placeholder: ConstantsAlert.resetButton)
+    private let resetButton = MyButton(buttonText: ConstantsAlert.resetButton)
     
     private let changeButton: UIButton = {
         let element = UIButton()
@@ -93,7 +93,7 @@ private extension VerificationAlertVC {
             alertView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             alertView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             alertView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
-            alertView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.45),
+            alertView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4),
             
             titleLabel.topAnchor.constraint(equalTo: alertView.topAnchor, constant: 20),
             titleLabel.centerXAnchor.constraint(equalTo: alertView.centerXAnchor),

@@ -1,5 +1,5 @@
 //
-//  NewPassVC.swift
+//  NewPassViewController.swift
 //  RollApp
 //
 //  Created by July Belova on 08.11.2024.
@@ -25,7 +25,7 @@ final class NewPasswordViewController: UIViewController {
     
     private let newPassTF = RegisterTextField(placeholder: ConstantsNewPass.newPassTF)
     private let passwordTF = RegisterTextField(placeholder: ConstantsNewPass.passwordTF)
-    private let myButton = MyButton(placeholder: ConstantsNewPass.myButton)
+    private let myButton = MyButton(buttonText: ConstantsNewPass.myButton)
     
     //MARK: - Override Methods
     override func viewDidLoad() {
@@ -59,7 +59,7 @@ private extension NewPasswordViewController {
     }
     
     @objc private func selectButtonTapped() {
-        let viewControllerToPresent = ViewController()
+        let viewControllerToPresent = MainPageViewController()
         viewControllerToPresent.modalPresentationStyle = .fullScreen
         present(viewControllerToPresent, animated: true, completion: nil)
     }
