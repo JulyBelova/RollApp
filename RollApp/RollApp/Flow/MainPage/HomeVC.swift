@@ -11,19 +11,24 @@ class HomeViewController: UIViewController {
     
     
     //MARK: - Private Property
-    private let topImage: UIImageView = {
-        let element = UIImageView()
-        element.image = UIImage(named: ImageName.topImage)
-        element.tintColor = .white
-        element.translatesAutoresizingMaskIntoConstraints = false
-        return element
-    }()
+    private let gradientLayer: CAGradientLayer = {
+            let layer = CAGradientLayer()
+            layer.colors = [
+                UIColor.accentDarkBlue.cgColor,
+                UIColor.accentDarkRed.cgColor
+            ]
+            layer.locations = [0.0, 1.0]
+            return layer
+        }()
     
+    private let scrollView = UIScrollView()
+    private let contentView = UIView()
+   
     private let topLabel: UILabel = {
         let element = UILabel()
         element.text = "Menu"
         element.textAlignment = .center
-        element.textColor = .white
+        element.textColor = .accentYellow
         element.font = .boldSystemFont(ofSize: 32)
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
@@ -31,45 +36,71 @@ class HomeViewController: UIViewController {
     
     private let titleLabel: UILabel = {
         let element = UILabel()
-        element.text = "Еда, приготовленная с любовью. Богатейшие ингредиенты."
+        element.text = "Еда, приготовленная с любовью!"
         element.textAlignment = .center
-        element.numberOfLines = 0
-        element.textColor = .white
+        element.textColor = .accentLightRed
         element.font = .boldSystemFont(ofSize: 17)
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
     
+    private let searchField = SearchMenuField()
+    
     lazy var menuCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = 5
-        layout.minimumInteritemSpacing = 5
+        layout.minimumLineSpacing = 20
+        layout.minimumInteritemSpacing = 20
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collection.backgroundColor = .white
+        collection.backgroundColor = .clear
         collection.layer.cornerRadius = 35
+//        collection.layer.borderWidth = 3
+//        collection.layer.borderColor = UIColor.accentBlue.cgColor
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.register(MenuCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: MenuCollectionViewCell.self))
         
         return collection
     }()
-    private var items: [DishModel] = []
+    
+    private let myButton = MyButton(buttonText: "Вернись наверх!")
+    
+    private var items: [DishModel] = [
+        DishModel(imageOfTheDish: UIImage(named:"Сет")!, nameOfTheDish: "Сет"),
+        DishModel(imageOfTheDish: UIImage(named:"Темпура1")!, nameOfTheDish: "Горячие роллы"),
+        DishModel(imageOfTheDish: UIImage(named:"Урамаки10")!, nameOfTheDish: "Холодные роллы"),
+        DishModel(imageOfTheDish: UIImage(named:"СладкийРолл")!, nameOfTheDish: "Сладкие роллы"),
+        DishModel(imageOfTheDish: UIImage(named:"Мидии")!, nameOfTheDish: "Закуски"),
+        DishModel(imageOfTheDish: UIImage(named:"Васаби")!, nameOfTheDish: "Добавки"),
+    ]
+    // MARK: - Initializers
+       init() {
+           super.init(nibName: nil, bundle: nil)
+       }
+       required init?(coder: NSCoder) {
+           fatalError("init(coder:) has not been implemented")
+       }
     
     //MARK: - Override Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
     }
+    override func viewDidLayoutSubviews() {
+            super.viewDidLayoutSubviews()
+            gradientLayer.frame = view.bounds
+        }
 }
 
 //MARK: - Setting Views
 private extension HomeViewController {
     func setupView() {
-        view.backgroundColor = .accentDarkRed
+        navigationController?.navigationBar.barTintColor = .accentDarkBlue
+        
         menuCollectionView.delegate = self
         menuCollectionView.dataSource = self
         addSubViews()
         addAction()
+        configureScrollView()
         setupLayout()
     }
 }
@@ -77,17 +108,27 @@ private extension HomeViewController {
 //MARK: - Setting
 private extension HomeViewController {
     func addSubViews() {
-        view.addSubview(topImage)
-        view.addSubview(topLabel)
-        view.addSubview(titleLabel)
-        view.addSubview(menuCollectionView)
+        view.layer.addSublayer(gradientLayer)
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubview(topLabel)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(searchField)
+        contentView.addSubview(menuCollectionView)
+        contentView.addSubview(myButton)
     }
     
     func addAction () {
-        navigationController?.navigationBar.tintColor = .white
+        
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: ImageName.menu), style: .done, target: self, action: #selector(selectMenuTapped))
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: ImageName.basketLight), style: .done, target: self, action: #selector(selectBasketTapped))
+        
+        myButton.addTarget(self, action: #selector(selectMyButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc func selectMyButtonTapped() {
+        
     }
     
     @objc func selectMenuTapped() {
@@ -100,31 +141,17 @@ private extension HomeViewController {
         //viewControllerToPresent.modalPresentationStyle = .fullScreen
         present(viewControllerToPresent, animated: true, completion: nil)
     }
-}
-
-//MARK: - Layout
-private extension HomeViewController {
-    func setupLayout() {
-        
-        topImage.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        topImage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        topImage.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        topImage.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5).isActive = true
-        
-        topLabel.topAnchor.constraint(equalTo: topImage.bottomAnchor, constant: 10).isActive = true
-        topLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
-        titleLabel.topAnchor.constraint(equalTo: topLabel.bottomAnchor, constant: 20).isActive = true
-        titleLabel.widthAnchor.constraint(equalToConstant: 300).isActive = true
-        titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-   
-        menuCollectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20).isActive = true
-        menuCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
-        menuCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
-        menuCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 20).isActive = true
+    func configureScrollView() {
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.showsVerticalScrollIndicator = true
+        scrollView.alwaysBounceVertical = true
+        scrollView.backgroundColor = .clear
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.backgroundColor = .clear
     }
 }
 
+//MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         items.count
@@ -132,18 +159,62 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: MenuCollectionViewCell.self), for: indexPath) as! MenuCollectionViewCell
-        cell.configure(with: items[indexPath.item])
-
+        cell.configure(with: items[indexPath.row])
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath.row)
+    }
 }
+
 //MARK: - UICollectionViewDelegateFlowLayout
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: collectionView.frame.width, height: collectionView.frame.width * 1.15)
-       
+        CGSize(width: collectionView.frame.width, height: 30+210+30+22)
     }
 }
-#Preview("SignInViewController"){
+//MARK: - Layout
+private extension HomeViewController {
+    func setupLayout() {
+        
+        scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        
+        contentView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+        contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
+        contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
+        contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+        
+        topLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        topLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        topLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        
+        titleLabel.topAnchor.constraint(equalTo: topLabel.bottomAnchor, constant: 20).isActive = true
+        titleLabel.widthAnchor.constraint(equalToConstant: 300).isActive = true
+        titleLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        
+        searchField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20).isActive = true
+        searchField.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        searchField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75).isActive = true
+        searchField.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        menuCollectionView.topAnchor.constraint(equalTo: searchField.bottomAnchor, constant: 30).isActive = true
+        menuCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0).isActive = true
+        menuCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0).isActive = true
+        menuCollectionView.heightAnchor.constraint(equalToConstant: 1000).isActive = true
+        
+        myButton.topAnchor.constraint(equalTo: menuCollectionView.bottomAnchor, constant: 20).isActive = true
+        myButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        myButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.6).isActive = true
+        myButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20).isActive = true
+    }
+}
+
+#Preview("HomeViewController"){
     HomeViewController()
 }
