@@ -7,6 +7,8 @@
 import UIKit
 
 struct DishModel {
-    let image: UIImage
+    let imageOfTheDish: UIImage
     let nameOfTheDish: String
 }
+
+

@@ -16,7 +16,9 @@ class MenuCollectionViewCell: UICollectionViewCell {
         element.translatesAutoresizingMaskIntoConstraints = false
         element.contentMode = .scaleAspectFill
         element.clipsToBounds = true
-        element.image = UIImage(named: ImageName.logo)
+        element.layer.cornerRadius = 35
+        element.layer.borderWidth = 3
+        element.layer.borderColor = UIColor.accentDarkRed.cgColor
         return element
     }()
     
@@ -24,7 +26,7 @@ class MenuCollectionViewCell: UICollectionViewCell {
         let element = UILabel()
         element.translatesAutoresizingMaskIntoConstraints = false
         element.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        element.text = "Main Dishes"
+        element.textColor = .accentYellow
         return element
     }()
   
@@ -32,42 +34,40 @@ class MenuCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        makeUI()
+        setupCell()
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     func configure(with info: DishModel) {
-        dishImageView.image = info.image
+        dishImageView.image = info.imageOfTheDish
         nameLabel.text = info.nameOfTheDish
     }
 }
 
 extension MenuCollectionViewCell {
-    func makeUI() {
-        contentView.backgroundColor = .accentLightRed
+    func setupCell() {
+        contentView.backgroundColor = .white.withAlphaComponent(0.1)
         contentView.layer.cornerRadius = 35
         contentView.layer.masksToBounds = true
 
         contentView.addSubview(dishImageView)
         contentView.addSubview(nameLabel)
     
-       
-
-        
-        
-     
-        
         NSLayoutConstraint.activate([
-            dishImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            dishImageView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            dishImageView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            dishImageView.heightAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.75),
+            dishImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30),
+            dishImageView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 30),
+            dishImageView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -30),
+            dishImageView.heightAnchor.constraint(equalToConstant: 210),
             
             nameLabel.topAnchor.constraint(equalTo: dishImageView.bottomAnchor, constant: 16),
-            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-         
+            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 60),
+            nameLabel.heightAnchor.constraint(equalToConstant: 20),
+            nameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
             
         ])
     }
 }
+//#Preview("MenuCollectionViewCell"){
+//    MenuCollectionViewCell()
+//}

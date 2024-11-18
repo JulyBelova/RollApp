@@ -24,10 +24,10 @@ class MyButton: UIButton {
         tintColor = .white
         titleLabel?.font = UIFont.systemFont(ofSize: 17)
         layer.cornerRadius = 25
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowRadius = 7
-        layer.shadowOpacity = 0.4
-        layer.shadowOffset = CGSize(width: 15, height: 15)
+//        layer.shadowColor = UIColor.black.cgColor
+//        layer.shadowRadius = 7
+//        layer.shadowOpacity = 0.4
+//        layer.shadowOffset = CGSize(width: 15, height: 15)
         heightAnchor.constraint(equalToConstant: 50).isActive = true
         translatesAutoresizingMaskIntoConstraints = false
     }
