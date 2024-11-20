@@ -1,5 +1,5 @@
 //
-//  MenuCollectionViewCell.swift
+//  HomeCollectionViewCell.swift
 //  RollApp
 //
 //  Created by July Belova on 11.11.2024.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class MenuCollectionViewCell: UICollectionViewCell {
+class HomeCollectionViewCell: UICollectionViewCell {
     // MARK: - Properties
 
     private let dishImageView: UIImageView = {
@@ -45,7 +45,7 @@ class MenuCollectionViewCell: UICollectionViewCell {
     }
 }
 
-extension MenuCollectionViewCell {
+extension HomeCollectionViewCell {
     func setupCell() {
         contentView.backgroundColor = .white.withAlphaComponent(0.1)
         contentView.layer.cornerRadius = 35

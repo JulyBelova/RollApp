@@ -7,10 +7,17 @@
 
 import UIKit
 
+protocol HomeViewControllerDelegate: AnyObject {
+    func didSelectMenuItem()
+}
+
 class HomeViewController: UIViewController {
     
     
     //MARK: - Private Property
+    
+    weak var delegate: HomeViewControllerDelegate?
+    
     private let gradientLayer: CAGradientLayer = {
             let layer = CAGradientLayer()
             layer.colors = [
@@ -57,7 +64,7 @@ class HomeViewController: UIViewController {
 //        collection.layer.borderWidth = 3
 //        collection.layer.borderColor = UIColor.accentBlue.cgColor
         collection.translatesAutoresizingMaskIntoConstraints = false
-        collection.register(MenuCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: MenuCollectionViewCell.self))
+        collection.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: HomeCollectionViewCell.self))
         
         return collection
     }()
@@ -95,7 +102,7 @@ class HomeViewController: UIViewController {
 private extension HomeViewController {
     func setupView() {
         navigationController?.navigationBar.barTintColor = .accentDarkBlue
-        
+      
         menuCollectionView.delegate = self
         menuCollectionView.dataSource = self
         addSubViews()
@@ -132,9 +139,11 @@ private extension HomeViewController {
     }
     
     @objc func selectMenuTapped() {
-        let viewControllerToPresent = MenuViewController()
-        //viewControllerToPresent.modalPresentationStyle = .fullScreen
-        present(viewControllerToPresent, animated: true, completion: nil)
+        print("tapped")
+        delegate?.didSelectMenuItem()
+//        let viewControllerToPresent = MenuViewController()
+//        //viewControllerToPresent.modalPresentationStyle = .fullScreen
+//        present(viewControllerToPresent, animated: true, completion: nil)
     }
     @objc func selectBasketTapped() {
         let viewControllerToPresent = ViewController()
@@ -158,7 +167,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: MenuCollectionViewCell.self), for: indexPath) as! MenuCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HomeCollectionViewCell.self), for: indexPath) as! HomeCollectionViewCell
         cell.configure(with: items[indexPath.row])
         return cell
     }

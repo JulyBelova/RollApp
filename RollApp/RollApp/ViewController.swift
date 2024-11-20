@@ -16,7 +16,6 @@ import UIKit
 //
 //
 //}
-import UIKit
 
 class ViewController: UIViewController {
     
@@ -42,7 +41,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view.backgroundColor = .accentBlue
         setupUI()
         
         let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture(_:)))
