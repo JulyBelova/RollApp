@@ -7,10 +7,17 @@
 
 import UIKit
 
+protocol HomeViewControllerDelegate: AnyObject {
+    func didSelectMenuItem()
+}
+
 class HomeViewController: UIViewController {
     
     
     //MARK: - Private Property
+    
+    weak var delegate: HomeViewControllerDelegate?
+    
     private let gradientLayer: CAGradientLayer = {
             let layer = CAGradientLayer()
             layer.colors = [
@@ -53,11 +60,11 @@ class HomeViewController: UIViewController {
         layout.minimumInteritemSpacing = 20
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.backgroundColor = .clear
-        collection.layer.cornerRadius = 35
+        collection.layer.cornerRadius = 27
 //        collection.layer.borderWidth = 3
 //        collection.layer.borderColor = UIColor.accentBlue.cgColor
         collection.translatesAutoresizingMaskIntoConstraints = false
-        collection.register(MenuCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: MenuCollectionViewCell.self))
+        collection.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: HomeCollectionViewCell.self))
         
         return collection
     }()
@@ -65,9 +72,11 @@ class HomeViewController: UIViewController {
     private let myButton = MyButton(buttonText: "Вернись наверх!")
     
     private var items: [DishModel] = [
-        DishModel(imageOfTheDish: UIImage(named:"Сет")!, nameOfTheDish: "Сет"),
-        DishModel(imageOfTheDish: UIImage(named:"Темпура1")!, nameOfTheDish: "Горячие роллы"),
         DishModel(imageOfTheDish: UIImage(named:"Урамаки10")!, nameOfTheDish: "Холодные роллы"),
+        DishModel(imageOfTheDish: UIImage(named:"Темпура1")!, nameOfTheDish: "Горячие роллы"),
+        DishModel(imageOfTheDish: UIImage(named:"Сет")!, nameOfTheDish: "Сет"),
+        
+       
         DishModel(imageOfTheDish: UIImage(named:"СладкийРолл")!, nameOfTheDish: "Сладкие роллы"),
         DishModel(imageOfTheDish: UIImage(named:"Мидии")!, nameOfTheDish: "Закуски"),
         DishModel(imageOfTheDish: UIImage(named:"Васаби")!, nameOfTheDish: "Добавки"),
@@ -95,7 +104,7 @@ class HomeViewController: UIViewController {
 private extension HomeViewController {
     func setupView() {
         navigationController?.navigationBar.barTintColor = .accentDarkBlue
-        
+      
         menuCollectionView.delegate = self
         menuCollectionView.dataSource = self
         addSubViews()
@@ -119,7 +128,6 @@ private extension HomeViewController {
     }
     
     func addAction () {
-        
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: ImageName.menu), style: .done, target: self, action: #selector(selectMenuTapped))
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: ImageName.basketLight), style: .done, target: self, action: #selector(selectBasketTapped))
@@ -128,19 +136,21 @@ private extension HomeViewController {
     }
     
     @objc func selectMyButtonTapped() {
-        
+        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        menuCollectionView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
     }
     
     @objc func selectMenuTapped() {
-        let viewControllerToPresent = MenuViewController()
-        //viewControllerToPresent.modalPresentationStyle = .fullScreen
-        present(viewControllerToPresent, animated: true, completion: nil)
+        print("tapped")
+        delegate?.didSelectMenuItem()
     }
+    
     @objc func selectBasketTapped() {
         let viewControllerToPresent = ViewController()
-        //viewControllerToPresent.modalPresentationStyle = .fullScreen
+        viewControllerToPresent.modalPresentationStyle = .fullScreen
         present(viewControllerToPresent, animated: true, completion: nil)
     }
+    
     func configureScrollView() {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.showsVerticalScrollIndicator = true
@@ -158,7 +168,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: MenuCollectionViewCell.self), for: indexPath) as! MenuCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HomeCollectionViewCell.self), for: indexPath) as! HomeCollectionViewCell
         cell.configure(with: items[indexPath.row])
         return cell
     }
@@ -171,7 +181,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 //MARK: - UICollectionViewDelegateFlowLayout
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: collectionView.frame.width, height: 30+210+30+22)
+        CGSize(width: collectionView.frame.width, height: collectionView.frame.width * 0.7)
     }
 }
 //MARK: - Layout
