@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "medal 1.png",
+      "filename" : "супы.jpg",
       "idiom" : "universal"
     }
   ],
@@ -10,8 +10,6 @@
     "version" : 1
   },
   "properties" : {
-    "localizable" : true,
-    "preserves-vector-representation" : true,
     "template-rendering-intent" : "original"
   }
 }

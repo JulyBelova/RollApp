@@ -16,7 +16,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
         element.translatesAutoresizingMaskIntoConstraints = false
         element.contentMode = .scaleAspectFill
         element.clipsToBounds = true
-        element.layer.cornerRadius = 35
+        element.layer.cornerRadius = 27
         element.layer.borderWidth = 3
         element.layer.borderColor = UIColor.accentDarkRed.cgColor
         return element
@@ -48,20 +48,20 @@ class HomeCollectionViewCell: UICollectionViewCell {
 extension HomeCollectionViewCell {
     func setupCell() {
         contentView.backgroundColor = .white.withAlphaComponent(0.1)
-        contentView.layer.cornerRadius = 35
+        contentView.layer.cornerRadius = 27
         contentView.layer.masksToBounds = true
 
         contentView.addSubview(dishImageView)
         contentView.addSubview(nameLabel)
     
         NSLayoutConstraint.activate([
-            dishImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30),
-            dishImageView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 30),
-            dishImageView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -30),
+            dishImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 27),
+            dishImageView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 27),
+            dishImageView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -27),
             dishImageView.heightAnchor.constraint(equalToConstant: 210),
             
             nameLabel.topAnchor.constraint(equalTo: dishImageView.bottomAnchor, constant: 16),
-            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 60),
+            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 54),
             nameLabel.heightAnchor.constraint(equalToConstant: 20),
             nameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
             
