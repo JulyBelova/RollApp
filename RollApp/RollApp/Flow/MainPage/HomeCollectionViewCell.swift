@@ -40,14 +40,14 @@ class HomeCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     func configure(with info: DishModel) {
-        dishImageView.image = info.imageOfTheDish
-        nameLabel.text = info.nameOfTheDish
+        dishImageView.image = info.dishTypeImage
+        nameLabel.text = info.dishTypeName
     }
 }
 
 extension HomeCollectionViewCell {
     func setupCell() {
-        contentView.backgroundColor = .white.withAlphaComponent(0.1)
+        contentView.backgroundColor = .black.withAlphaComponent(0.2)
         contentView.layer.cornerRadius = 27
         contentView.layer.masksToBounds = true
 
@@ -55,15 +55,17 @@ extension HomeCollectionViewCell {
         contentView.addSubview(nameLabel)
     
         NSLayoutConstraint.activate([
-            dishImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 27),
-            dishImageView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 27),
-            dishImageView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -27),
-            dishImageView.heightAnchor.constraint(equalToConstant: 210),
+            dishImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 25),
+            dishImageView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 30),
+            dishImageView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -30),
+            dishImageView.heightAnchor.constraint(equalToConstant: 200),
+            //dishImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -54),
+            //dishImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.7),
             
-            nameLabel.topAnchor.constraint(equalTo: dishImageView.bottomAnchor, constant: 16),
+            nameLabel.topAnchor.constraint(equalTo: dishImageView.bottomAnchor, constant: 15),
             nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 54),
             nameLabel.heightAnchor.constraint(equalToConstant: 20),
-            nameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
+            nameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -25),
             
         ])
     }

@@ -72,15 +72,20 @@ class HomeViewController: UIViewController {
     private let myButton = MyButton(buttonText: "Вернись наверх!")
     
     private var items: [DishModel] = [
-        DishModel(imageOfTheDish: UIImage(named:"Урамаки10")!, nameOfTheDish: "Холодные роллы"),
-        DishModel(imageOfTheDish: UIImage(named:"Темпура1")!, nameOfTheDish: "Горячие роллы"),
-        DishModel(imageOfTheDish: UIImage(named:"Сет")!, nameOfTheDish: "Сет"),
-        
-       
-        DishModel(imageOfTheDish: UIImage(named:"СладкийРолл")!, nameOfTheDish: "Сладкие роллы"),
-        DishModel(imageOfTheDish: UIImage(named:"Мидии")!, nameOfTheDish: "Закуски"),
-        DishModel(imageOfTheDish: UIImage(named:"Васаби")!, nameOfTheDish: "Добавки"),
+        DishModel(dishTypeImage: UIImage(named: "Урамаки10")!, dishTypeName: "Холодные роллы"),
+        DishModel(dishTypeImage: UIImage(named: "Бекон")!, dishTypeName: "Запечённые роллы"),
+        DishModel(dishTypeImage: UIImage(named: "Темпура1")!, dishTypeName: "Темпура роллы"),
+        DishModel(dishTypeImage: UIImage(named: "Сет")!, dishTypeName: "Сеты"),
+        DishModel(dishTypeImage: UIImage(named: "суши")!, dishTypeName: "Суши"),
+        DishModel(dishTypeImage: UIImage(named: "Мидии")!, dishTypeName: "Закуски"),
+        DishModel(dishTypeImage: UIImage(named: "вок")!, dishTypeName: "Wok"),
+        DishModel(dishTypeImage: UIImage(named: "паста")!, dishTypeName: "Паста"),
+        DishModel(dishTypeImage: UIImage(named: "супы")!, dishTypeName: "Супы"),
+        DishModel(dishTypeImage: UIImage(named: "СладкийРолл")!, dishTypeName: "Десерты"),
+        DishModel(dishTypeImage: UIImage(named: "напитки")!, dishTypeName: "Напитки"),
+        DishModel(dishTypeImage: UIImage(named: "Васаби")!, dishTypeName: "Добавки"),
     ]
+    
     // MARK: - Initializers
        init() {
            super.init(nibName: nil, bundle: nil)
@@ -181,7 +186,8 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 //MARK: - UICollectionViewDelegateFlowLayout
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: collectionView.frame.width, height: collectionView.frame.width * 0.7)
+        CGSize(width: collectionView.frame.width, height: 285)
+        //CGSize(width: collectionView.frame.width, height: collectionView.frame.width * 0.8)
     }
 }
 //MARK: - Layout
