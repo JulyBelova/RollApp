@@ -40,14 +40,28 @@ enum ConstantsAlert {
 enum ConstantsMainPageVC {
     static let menuLabel = "Menu"
     static let titleLabel = "Еда, приготовленная с любовью. Богатейшие ингредиенты."
+    static let myButton = "Вернись наверх!"
 }
+//enum ConstantsMenuVC {
+//    static let profile = "Profile"
+//    static let wishlist = "Wishlist"
+//    static let loyaltyPoints = "Loyalty Points"
+//    static let paymentMethods = "Payment Methods"
+//}
 enum ImageName {
     static let logo = "icon"
     static let topImage = "topImage"
     static let menu = "menu"
     static let basketLight = "basketLight"
+    static let close = "close"
+    
+    static let menuProfile = "profile"
+    static let menuWishlist = "wishlist"
+    static let menuLoyaltyPoints = "loyaltyPoints"
+    static let menuPaymentMethods = "paymentMethods"
 }
 enum SystemImageName {
     static let arrowRight = "arrow.right"
     static let chevronUp = "chevron.up"
+    static let basket = "basket"
 }

@@ -19,21 +19,21 @@ class HomeViewController: UIViewController {
     weak var delegate: HomeViewControllerDelegate?
     
     private let gradientLayer: CAGradientLayer = {
-            let layer = CAGradientLayer()
-            layer.colors = [
-                UIColor.accentDarkBlue.cgColor,
-                UIColor.accentDarkRed.cgColor
-            ]
-            layer.locations = [0.0, 1.0]
-            return layer
-        }()
+        let layer = CAGradientLayer()
+        layer.colors = [
+            UIColor.accentDarkBlue.cgColor,
+            UIColor.accentDarkRed.cgColor
+        ]
+        layer.locations = [0.0, 1.0]
+        return layer
+    }()
     
     private let scrollView = UIScrollView()
     private let contentView = UIView()
-   
+    
     private let topLabel: UILabel = {
         let element = UILabel()
-        element.text = "Menu"
+        element.text = ConstantsMainPageVC.menuLabel
         element.textAlignment = .center
         element.textColor = .accentYellow
         element.font = .boldSystemFont(ofSize: 32)
@@ -43,7 +43,7 @@ class HomeViewController: UIViewController {
     
     private let titleLabel: UILabel = {
         let element = UILabel()
-        element.text = "Еда, приготовленная с любовью!"
+        element.text = ConstantsMainPageVC.titleLabel
         element.textAlignment = .center
         element.textColor = .accentLightRed
         element.font = .boldSystemFont(ofSize: 17)
@@ -61,33 +61,35 @@ class HomeViewController: UIViewController {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.backgroundColor = .clear
         collection.layer.cornerRadius = 27
-//        collection.layer.borderWidth = 3
-//        collection.layer.borderColor = UIColor.accentBlue.cgColor
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: HomeCollectionViewCell.self))
-        
         return collection
     }()
     
-    private let myButton = MyButton(buttonText: "Вернись наверх!")
+    private let myButton = MyButton(buttonText: ConstantsMainPageVC.myButton)
     
     private var items: [DishModel] = [
-        DishModel(imageOfTheDish: UIImage(named:"Урамаки10")!, nameOfTheDish: "Холодные роллы"),
-        DishModel(imageOfTheDish: UIImage(named:"Темпура1")!, nameOfTheDish: "Горячие роллы"),
-        DishModel(imageOfTheDish: UIImage(named:"Сет")!, nameOfTheDish: "Сет"),
-        
-       
-        DishModel(imageOfTheDish: UIImage(named:"СладкийРолл")!, nameOfTheDish: "Сладкие роллы"),
-        DishModel(imageOfTheDish: UIImage(named:"Мидии")!, nameOfTheDish: "Закуски"),
-        DishModel(imageOfTheDish: UIImage(named:"Васаби")!, nameOfTheDish: "Добавки"),
+        DishModel(dishTypeImage: UIImage(named: "Урамаки10")!, dishTypeName: "Холодные роллы"),
+        DishModel(dishTypeImage: UIImage(named: "Бекон")!, dishTypeName: "Запечённые роллы"),
+        DishModel(dishTypeImage: UIImage(named: "Темпура1")!, dishTypeName: "Темпура роллы"),
+        DishModel(dishTypeImage: UIImage(named: "Сет")!, dishTypeName: "Сеты"),
+        DishModel(dishTypeImage: UIImage(named: "суши")!, dishTypeName: "Суши"),
+        DishModel(dishTypeImage: UIImage(named: "Мидии")!, dishTypeName: "Закуски"),
+        DishModel(dishTypeImage: UIImage(named: "вок")!, dishTypeName: "Wok"),
+        DishModel(dishTypeImage: UIImage(named: "паста")!, dishTypeName: "Паста"),
+        DishModel(dishTypeImage: UIImage(named: "супы")!, dishTypeName: "Супы"),
+        DishModel(dishTypeImage: UIImage(named: "СладкийРолл")!, dishTypeName: "Десерты"),
+        DishModel(dishTypeImage: UIImage(named: "напитки")!, dishTypeName: "Напитки"),
+        DishModel(dishTypeImage: UIImage(named: "Васаби")!, dishTypeName: "Добавки"),
     ]
+    
     // MARK: - Initializers
-       init() {
-           super.init(nibName: nil, bundle: nil)
-       }
-       required init?(coder: NSCoder) {
-           fatalError("init(coder:) has not been implemented")
-       }
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     //MARK: - Override Methods
     override func viewDidLoad() {
@@ -95,16 +97,19 @@ class HomeViewController: UIViewController {
         setupView()
     }
     override func viewDidLayoutSubviews() {
-            super.viewDidLayoutSubviews()
-            gradientLayer.frame = view.bounds
-        }
+        super.viewDidLayoutSubviews()
+        gradientLayer.frame = view.bounds
+    }
 }
 
 //MARK: - Setting Views
 private extension HomeViewController {
     func setupView() {
-        navigationController?.navigationBar.barTintColor = .accentDarkBlue
-      
+        navigationController?.navigationBar.backgroundColor = .accentDarkBlue
+        //navigationController?.navigationBar.isTranslucent = false
+        //navigationController?.navigationBar.barTintColor = .accentDarkBlue
+        navigationController?.navigationBar.tintColor = .white
+        
         menuCollectionView.delegate = self
         menuCollectionView.dataSource = self
         addSubViews()
@@ -128,9 +133,15 @@ private extension HomeViewController {
     }
     
     func addAction () {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: ImageName.menu), style: .done, target: self, action: #selector(selectMenuTapped))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: ImageName.menu),
+                                                           style: .done,
+                                                           target: self,
+                                                           action: #selector(selectMenuTapped))
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: ImageName.basketLight), style: .done, target: self, action: #selector(selectBasketTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: SystemImageName.basket),
+                                                            style: .done,
+                                                            target: self,
+                                                            action: #selector(selectBasketTapped))
         
         myButton.addTarget(self, action: #selector(selectMyButtonTapped), for: .touchUpInside)
     }
@@ -141,8 +152,34 @@ private extension HomeViewController {
     }
     
     @objc func selectMenuTapped() {
-        print("tapped")
-        delegate?.didSelectMenuItem()
+        let viewControllerToPresent = SideMenuViewController()
+        viewControllerToPresent.modalPresentationStyle = .overFullScreen
+        viewControllerToPresent.modalTransitionStyle = .flipHorizontal
+        present(viewControllerToPresent, animated: true, completion: nil)
+//        //delegate?.didSelectMenuItem()
+        
+//        
+//        let viewControllerToPresent = SideMenu()
+//
+//        UIView.animate(withDuration: 2, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 8, options: .curveEaseInOut) {
+//            //viewControllerToPresent.modalPresentationStyle = .overFullScreen
+//            self.present(viewControllerToPresent, animated: true, completion: nil)
+//        }
+        
+        
+        
+//        // Создаем кастомный переход
+//        let transition = CATransition()
+//        transition.duration = 0.5 // Длительность анимации
+//        transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut) // Функция изменения скорости анимации
+//        transition.type = .push // Тип анимации (push - сдвиг)
+//        transition.subtype = .fromLeft // Направление сдвига (слева направо)
+//
+//        // Применяем анимацию к текущему контексту
+//        self.view.layer.add(transition, forKey: nil)
+//
+//        self.present(viewControllerToPresent, animated: false, completion: nil) // Важно: animated: false, так как мы используем кастомную анимацию
+        
     }
     
     @objc func selectBasketTapped() {
@@ -155,9 +192,7 @@ private extension HomeViewController {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.showsVerticalScrollIndicator = true
         scrollView.alwaysBounceVertical = true
-        scrollView.backgroundColor = .clear
         contentView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.backgroundColor = .clear
     }
 }
 
@@ -225,6 +260,6 @@ private extension HomeViewController {
     }
 }
 
-#Preview("HomeViewController"){
-    HomeViewController()
-}
+//#Preview("HomeViewController"){
+//    HomeViewController()
+//}

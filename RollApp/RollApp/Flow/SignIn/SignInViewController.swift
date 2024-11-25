@@ -119,7 +119,7 @@ private extension SignInViewController {
     }
     
     @objc private func selectMyButtonTapped() {
-        let viewControllerToPresent = HomeViewController()
+        let viewControllerToPresent = MainPageViewController()
         viewControllerToPresent.modalPresentationStyle = .fullScreen
         present(viewControllerToPresent, animated: true, completion: nil)
     }
