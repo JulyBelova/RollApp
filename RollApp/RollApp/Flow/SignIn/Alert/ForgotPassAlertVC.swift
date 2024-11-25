@@ -9,7 +9,20 @@ import UIKit
 final class ForgotPassAlertVC: UIViewController {
     
     //MARK: - Private Property
-   
+    
+    private let blurBackView: UIView = {
+        let element = UIView()
+        element.translatesAutoresizingMaskIntoConstraints = false
+        element.backgroundColor = .accentBlue.withAlphaComponent(0.1)
+        let blurEffect = UIBlurEffect(style: .dark)
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        blurView.frame = element.bounds
+        blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        element.addSubview(blurView)
+        element.sendSubviewToBack(blurView)
+        return element
+    }()
+    
     private let alertView: UIView = {
         let element = UIView()
         element.translatesAutoresizingMaskIntoConstraints = false
@@ -56,7 +69,8 @@ private extension ForgotPassAlertVC {
 //MARK: - Setting
 private extension ForgotPassAlertVC {
     func addSubViews() {
-        view.addSubview(alertView)
+        view.addSubview(blurBackView)
+        blurBackView.addSubview(alertView)
         alertView.addSubview(cancelButton)
         alertView.addSubview(titleAlertLabel)
         alertView.addSubview(emailTextField)
@@ -83,10 +97,15 @@ private extension ForgotPassAlertVC {
 private extension ForgotPassAlertVC {
     func setupLayout() {
         NSLayoutConstraint.activate([
-            alertView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            alertView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            alertView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
-            alertView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4),
+            blurBackView.topAnchor.constraint(equalTo: view.topAnchor),
+            blurBackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            blurBackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            blurBackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            alertView.centerXAnchor.constraint(equalTo: blurBackView.centerXAnchor),
+            alertView.centerYAnchor.constraint(equalTo: blurBackView.centerYAnchor),
+            alertView.widthAnchor.constraint(equalTo: blurBackView.widthAnchor, multiplier: 0.8),
+            alertView.heightAnchor.constraint(equalTo: blurBackView.heightAnchor, multiplier: 0.4),
             
             cancelButton.topAnchor.constraint(equalTo: alertView.topAnchor, constant: 20),
             cancelButton.rightAnchor.constraint(equalTo: alertView.rightAnchor, constant: -20),

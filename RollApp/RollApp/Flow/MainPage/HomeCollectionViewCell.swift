@@ -16,7 +16,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
         element.translatesAutoresizingMaskIntoConstraints = false
         element.contentMode = .scaleAspectFill
         element.clipsToBounds = true
-        element.layer.cornerRadius = 27
+        element.layer.cornerRadius = 26
         element.layer.borderWidth = 3
         element.layer.borderColor = UIColor.accentDarkRed.cgColor
         return element
@@ -55,18 +55,13 @@ extension HomeCollectionViewCell {
         contentView.addSubview(nameLabel)
     
         NSLayoutConstraint.activate([
-            dishImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 25),
-            dishImageView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 30),
-            dishImageView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -30),
-            dishImageView.heightAnchor.constraint(equalToConstant: 200),
-            //dishImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -54),
-            //dishImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.7),
+            dishImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            dishImageView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20),
+            dishImageView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -20),
+            dishImageView.heightAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.5),
             
-            nameLabel.topAnchor.constraint(equalTo: dishImageView.bottomAnchor, constant: 15),
             nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 54),
-            nameLabel.heightAnchor.constraint(equalToConstant: 20),
-            nameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -25),
-            
+            nameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
         ])
     }
 }
